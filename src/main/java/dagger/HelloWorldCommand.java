@@ -5,8 +5,11 @@ import java.util.List;
 
 final class HelloWorldCommand implements Command {
 
+    private final Outputter outputter;
+
     @Inject
-    public HelloWorldCommand() {
+    public HelloWorldCommand(Outputter outputter) {
+        this.outputter = outputter;
     }
 
     public String key() {
@@ -15,11 +18,8 @@ final class HelloWorldCommand implements Command {
 
 
     public Status handleInput(List<String> input) {
-        if (!input.isEmpty()) {
-            return Status.INVALID;
-        }
         //输入 hello 输出 world!
-        System.out.println("world!");
+        outputter.output("world!");
         return Status.HANDLED;
     }
 }
