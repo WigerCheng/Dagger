@@ -1,21 +1,20 @@
 package dagger;
 
 import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 final class CommandRouter {
 
-    private final Map<String, Command> commands = Collections.emptyMap();
+    private final Map<String, Command> commands = new HashMap<>();
 
     /**
      * 用@Inject给函数做注释，告诉Dagger如何创建CommandRouter
      * 当我们需要一个CommandRouter时，Dagger调用new Commander()
+     * 现在CommandRouter，为该命令的构造函数添加一个参数
      */
     @Inject
-    public CommandRouter() {
+    public CommandRouter(HelloWorldCommand helloWorldCommand) {
+        commands.put(helloWorldCommand.key(), helloWorldCommand);
     }
 
     /**
