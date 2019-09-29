@@ -10,11 +10,17 @@ final class CommandRouter {
     /**
      * 用@Inject给函数做注释，告诉Dagger如何创建CommandRouter
      * 当我们需要一个CommandRouter时，Dagger调用new Commander()
-     * 现在CommandRouter，为该命令的构造函数添加一个参数
+     * 现在CommandRouter，为该命令的构造函数添加一个参数。
+     * 把原来的HelloWorldCommand 换成通用的Command
+     *
+     * 因为Command是一个接口，没有@Inject注解的构造函数，
+     * 所以Dagger并不知道怎么获取Command的实例，
+     * 因此我们需要给Dagger更多的信息。
+     * @see HelloWorldModule
      */
     @Inject
-    public CommandRouter(HelloWorldCommand helloWorldCommand) {
-        commands.put(helloWorldCommand.key(), helloWorldCommand);
+    public CommandRouter(Command command) {
+        commands.put(command.key(), command);
     }
 
     /**
