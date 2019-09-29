@@ -16,9 +16,4 @@ final class LoginCommand extends SingleArgCommand {
         outputter.output(username + " is logged in.");
         return Status.HANDLED;
     }
-
-    @Override
-    public String key() {
-        return "login";
-    }
 }

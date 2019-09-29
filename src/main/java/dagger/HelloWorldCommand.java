@@ -12,11 +12,6 @@ final class HelloWorldCommand implements Command {
         this.outputter = outputter;
     }
 
-    public String key() {
-        return "hello";
-    }
-
-
     public Status handleInput(List<String> input) {
         //输入 hello 输出 world!
         outputter.output("world!");

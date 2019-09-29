@@ -1,5 +1,8 @@
 package dagger;
 
+import dagger.multibindings.IntoMap;
+import dagger.multibindings.StringKey;
+
 /**
  * 模块是绑定方法的集合，这些方法为Dagger提供了有关如何提供实例的说明。
  * 与直接在类的构造函数上使用的 @Inject不同， @Binds方法必须在模块内部。
@@ -27,5 +30,7 @@ abstract class HelloWorldModule {
      * @see CommandRouterFactory
      */
     @Binds
+    @IntoMap
+    @StringKey("hello")
     abstract Command helloWorldCommand(HelloWorldCommand helloWorldCommand);
 }
