@@ -1,5 +1,6 @@
 package dagger;
 
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +9,14 @@ import java.util.Map;
 final class CommandRouter {
 
     private final Map<String, Command> commands = Collections.emptyMap();
+
+    /**
+     * 用@Inject给函数做注释，告诉Dagger如何创建CommandRouter
+     * 当我们需要一个CommandRouter时，Dagger调用new Commander()
+     */
+    @Inject
+    public CommandRouter() {
+    }
 
     /**
      * 根据输入中的第一个单词将输入字符串路由到它们。
@@ -40,6 +49,7 @@ final class CommandRouter {
 
     /**
      * 无效命令
+     *
      * @param input 命令字符串
      * @return Command.Status.INVALID
      */
