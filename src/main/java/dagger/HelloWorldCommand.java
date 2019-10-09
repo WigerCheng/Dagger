@@ -12,9 +12,9 @@ final class HelloWorldCommand implements Command {
         this.outputter = outputter;
     }
 
-    public Status handleInput(List<String> input) {
+    public Result handleInput(List<String> input) {
         //输入 hello 输出 world!
         outputter.output("world!");
-        return Status.HANDLED;
+        return Result.handled();
     }
 }

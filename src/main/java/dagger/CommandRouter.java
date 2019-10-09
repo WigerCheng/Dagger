@@ -33,7 +33,7 @@ final class CommandRouter {
      * @param input 命令字符串
      * @return 命令状态
      */
-    Command.Status route(String input) {
+    Command.Result route(String input) {
         List<String> splitInput = split(input);
         if (splitInput.isEmpty()) {
             return invalidCommand(input);
@@ -44,14 +44,14 @@ final class CommandRouter {
         if (command == null) {
             return invalidCommand(input);
         }
-        Command.Status status =
+        Command.Result result =
                 command.handleInput(splitInput.subList(
                         1, splitInput.size()
                 ));
-        if (status == Command.Status.INVALID) {
+        if (result.equals(Command.Result.invalid())) {
             System.out.println(commandKey + ": invalid arguments");
         }
-        return status;
+        return result;
     }
 
 
@@ -61,11 +61,11 @@ final class CommandRouter {
      * @param input 命令字符串
      * @return Command.Status.INVALID
      */
-    private Command.Status invalidCommand(String input) {
+    private Command.Result invalidCommand(String input) {
         System.out.println(
                 String.format("couldn't understand \"%s\". please try again.", input)
         );
-        return Command.Status.INVALID;
+        return Command.Result.invalid();
     }
 
     /**

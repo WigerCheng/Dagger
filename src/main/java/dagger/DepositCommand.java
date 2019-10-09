@@ -17,13 +17,13 @@ final class DepositCommand implements Command {
     }
 
     @Override
-    public Status handleInput(List<String> input) {
+    public Result handleInput(List<String> input) {
         if (input.size() != 2) {
-            return Status.INVALID;
+            return Result.invalid();
         }
         Database.Account account = database.getAccount(input.get(0));
         account.deposit(new BigDecimal(input.get(1)));
         outputter.output(account.username() + " now has: " + account.balance());
-        return Status.HANDLED;
+        return Result.handled();
     }
 }
