@@ -21,7 +21,6 @@ public class Database {
 
     @Inject
     public Database() {
-        System.out.println("Creating a new " + this);
     }
 
     Account getAccount(String username) {
@@ -38,6 +37,10 @@ public class Database {
 
         void deposit(BigDecimal deposit) {
             balance = balance.add(deposit);
+        }
+
+        void withdraw(BigDecimal withdraw) {
+            balance = balance.subtract(withdraw);
         }
 
         String username() {

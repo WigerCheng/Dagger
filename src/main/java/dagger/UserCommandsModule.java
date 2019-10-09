@@ -9,4 +9,9 @@ abstract class UserCommandsModule {
     @IntoMap
     @StringKey("deposit")
     abstract Command depositCommand(DepositCommand depositCommand);
+
+    @Binds
+    @IntoMap
+    @StringKey("withdraw")
+    abstract Command withdrawCommand(WithdrawCommand withdrawCommand);
 }
