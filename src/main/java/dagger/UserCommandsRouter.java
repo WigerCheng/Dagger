@@ -1,6 +1,6 @@
 package dagger;
 
-@Subcomponent(modules = UserCommandsModule.class)
+@Subcomponent(modules = {UserCommandsModule.class, AmountsModule.class})
 public interface UserCommandsRouter {
 
     CommandRouter router();
