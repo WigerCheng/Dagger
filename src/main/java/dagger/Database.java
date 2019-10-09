@@ -13,8 +13,6 @@ import java.util.Map;
  * 为了告诉Dagger它们是需要共享同一个Database对象，我们在Database的类上加上@Singleton
  * We also annotate our @Component type with @Singleton to declare that instances of classes annotated with @Singleton should be shared among other objects that depend on them in this component.
  * 我们还用@Singleton注释了@Component类型，以声明用@Singleton注释的类的实例应在依赖于此组件的其他对象之间共享。
- *
- * @see CommandRouterFactory
  */
 @Singleton
 public class Database {

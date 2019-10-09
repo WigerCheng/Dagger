@@ -7,8 +7,18 @@ import dagger.multibindings.StringKey;
  * 模块是绑定方法的集合，这些方法为Dagger提供了有关如何提供实例的说明。
  * 与直接在类的构造函数上使用的 @Inject不同， @Binds方法必须在模块内部。
  */
+
 @Module
-abstract class HelloWorldModule {
+abstract class CommandsModule {
+    /**
+     * ` @StringKey注释，结合@IntoMap，告诉匕首如何填充 Map<String, Command>
+     * 要利用这一点，我们可以将CommandRouter的构造函数参数切换为Map<String, Command>。
+     * 请注意，Command它本身将不再起作用。
+     */
+    @Binds
+    @IntoMap
+    @StringKey("login")
+    abstract Command loginCommand(LoginCommand loginCommand);
 
     /**
      * 绑定方法
@@ -25,9 +35,8 @@ abstract class HelloWorldModule {
      *
      * @param helloWorldCommand 参数类型是Dagger知道如何提供的类型
      * @return 参数类型是Dagger知道如何使用的类型
-     *
+     * <p>
      * 为了告诉 Dagger在 HelloWorldModule中寻找该 @Binds方法，我们将其添加到 @Component批注中。
-     * @see CommandRouterFactory
      */
     @Binds
     @IntoMap
