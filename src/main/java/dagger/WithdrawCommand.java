@@ -7,28 +7,31 @@ final class WithdrawCommand extends BigDecimalCommand {
 
     private Outputter outputter;
     private Database.Account account;
-    private BigDecimal minimumBalance, maximumWithdrawal;
+    private BigDecimal minimumBalance;
+    private WithdrawalLimiter withdrawalLimiter;
 
     @Inject
     WithdrawCommand(Outputter outputter,
                     Database.Account account,
                     @MinimumBalance BigDecimal minimumBalance,
-                    @MaximumWithdrawal BigDecimal maximumWithdrawal) {
+                    @MaximumWithdrawal BigDecimal maximumWithdrawal,
+                    WithdrawalLimiter withdrawalLimiter
+    ) {
         super(outputter);
         this.outputter = outputter;
         this.account = account;
         this.minimumBalance = minimumBalance;
-        this.maximumWithdrawal = maximumWithdrawal;
+        this.withdrawalLimiter = withdrawalLimiter;
     }
 
     @Override
     void handleAmount(BigDecimal amount) {
-        if (amount.compareTo(maximumWithdrawal) > 0) {
+        BigDecimal remainingWithdrawalLimit = withdrawalLimiter.remainingWithdrawalLimit();
+        if (amount.compareTo(remainingWithdrawalLimit) > 0) {
             outputter.output(
                     String.format(
-                            "you don't have sufficient funds to withdraw %s. "
-                                    + "your balance is %s and the maximumWithdrawal balance is %s",
-                            amount, account.balance(), maximumWithdrawal));
+                            "you may not withdraw %s; you may withdraw %s more in this session",
+                            amount, remainingWithdrawalLimit));
             return;
         }
         BigDecimal newBalance = account.balance().subtract(amount);
@@ -40,6 +43,7 @@ final class WithdrawCommand extends BigDecimalCommand {
                             amount, account.balance(), minimumBalance));
         } else {
             account.withdraw(amount);
+            withdrawalLimiter.recordWithdrawal(amount);
             outputter.output("your new balance is: " + account.balance());
         }
     }
