@@ -1,7 +1,5 @@
 package dagger;
 
-import javax.inject.Singleton;
-
 /**
  * 为了告诉Dagger在中寻找该 @Binds方法 LoginCommandModule, UserCommandsModule, HelloWorldModule, SystemOutModule，我们将其添加到 @Component注释中。
  * <p>
@@ -13,7 +11,7 @@ import javax.inject.Singleton;
  *
  * @see LoginCommandModule
  */
-@Singleton
+//@Singleton
 @Component(modules = {LoginCommandModule.class, UserCommandsModule.class, HelloWorldModule.class, SystemOutModule.class})
 public interface CommandRouterFactory {
     CommandRouter router();
