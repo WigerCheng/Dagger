@@ -19,7 +19,6 @@ final class CommandRouter {
      * 所以Dagger并不知道怎么获取Command的实例，
      * 因此我们需要给Dagger更多的信息。
      *
-     * @see HelloWorldModule
      */
     @Inject
     public CommandRouter(Map<String, Command> commands) {

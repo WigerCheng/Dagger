@@ -1,14 +1,14 @@
 package dagger;
 
 @PerSession
-@Subcomponent(modules = {UserCommandsModule.class, AmountsModule.class})
+@Subcomponent(modules = {UserCommandsModule.class, AmountsModule.class, AccountModule.class})
 public interface UserCommandsRouter {
 
     CommandRouter router();
 
     @Subcomponent.Factory
     interface Factory {
-        UserCommandsRouter create(@BindsInstance Database.Account account);
+        UserCommandsRouter create(@BindsInstance @Username String username);
     }
 
     @Module(subcomponents = UserCommandsRouter.class)

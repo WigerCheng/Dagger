@@ -42,4 +42,7 @@ abstract class CommandsModule {
     @IntoMap
     @StringKey("hello")
     abstract Command helloWorldCommand(HelloWorldCommand helloWorldCommand);
+
+    @BindsOptionalOf
+    abstract Database.Account optionalAccount();
 }
