@@ -14,4 +14,10 @@ abstract class UserCommandsModule {
     @IntoMap
     @StringKey("withdraw")
     abstract Command withdrawCommand(WithdrawCommand withdrawCommand);
+
+
+    @Binds
+    @IntoMap
+    @StringKey("logout")
+    abstract Command logoutCommand(LogoutCommand logoutCommand);
 }
